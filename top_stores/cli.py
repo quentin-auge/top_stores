@@ -38,7 +38,7 @@ def main():
 
     with open(os.path.join(args.out, 'top-50-stores.csv'), 'w') as f:
         fieldnames = ['code_magasin', 'ca']
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        writer = csv.DictWriter(f, fieldnames=fieldnames, delimiter='|')
         writer.writeheader()
         for row in top_stores_aggregator.get_top_stores(n=50):
             writer.writerow(row)
@@ -56,7 +56,7 @@ def main():
 
         with open(top_products_file, 'w') as f:
             fieldnames = ['code_magasin', 'identifiant_produit', 'ca']
-            writer = csv.DictWriter(f, fieldnames=fieldnames)
+            writer = csv.DictWriter(f, fieldnames=fieldnames, delimiter='|')
             writer.writeheader()
             for row in top_products_rows:
                 writer.writerow(row)
