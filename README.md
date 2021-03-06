@@ -37,17 +37,17 @@ Usage:
 ```
 $ top-stores --help
 
-usage: top-stores [-h] --output OUTPUT transactions_file
+usage: top-stores [-h] --out OUT transactions_file
 
 Aggregate top stores
 
 positional arguments:
-  transactions_file     input file containing transactions
+  transactions_file  input file containing transactions (gzipped pipe
+                     separated file)
 
 optional arguments:
-  -h, --help            show this help message and exit
-  --output OUTPUT, -o OUTPUT
-                        output folder (will be created, shall not exist)
+  -h, --help         show this help message and exit
+  --out OUT, -o OUT  output folder (will be created, shall not exist)
 ```
 
 Aggregate file `randomized-transactions-202009.psv.gz`:
