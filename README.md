@@ -2,7 +2,7 @@
 
 This take home project is about aggregating a file containing 160M monthly purchases in 3651 stores into:
  * A list of the 50 stores with the largest revenue
- * A list of the 10 most popular products for each store
+ * A list of the 100 most popular products for each store
 
 The code runs with Python >= 3.6. It is a locally pip-installable pure python package relying
 exclusively on standard library (no dependency), exposing a `top-stores` command line tool.
@@ -53,7 +53,54 @@ optional arguments:
 Aggregate file `randomized-transactions-202009.psv.gz`:
 
 ```
-$ top-stores -o out/ randomized-transactions-202009.psv.gz
+$ time top-stores -o out/ randomized-transactions-202009.psv.gz
+
+real	17m49.060s
+user	16m47.599s
+sys	0m5.732s
+```
+
+Results:
+
+```
+$ wc -l out/top-50 stores.csv
+51
+
+$ head out/top-50-stores.csv
+code_magasin|ca
+13800|7286310.21
+13314|4954346.51
+20001|4837372.02
+74339|4704957.65
+06829|4669147.82
+06312|4652404.54
+42830|4633373.37
+38336|4607381.01
+33848|4396928.37
+
+$ wc -l out/top-products-by-store/top-100-products-store-*.csv | head
+101 out/top-products-by-store/top-100-products-store-0021.csv
+101 out/top-products-by-store/top-100-products-store-0022.csv
+101 out/top-products-by-store/top-100-products-store-0026.csv
+101 out/top-products-by-store/top-100-products-store-0027.csv
+101 out/top-products-by-store/top-100-products-store-0030.csv
+101 out/top-products-by-store/top-100-products-store-0033.csv
+101 out/top-products-by-store/top-100-products-store-0034.csv
+101 out/top-products-by-store/top-100-products-store-0035.csv
+101 out/top-products-by-store/top-100-products-store-0036.csv
+101 out/top-products-by-store/top-100-products-store-0037.csv
+
+$ head out/top-products-by-store/top-100-products-store-0021.csv
+code_magasin|identifiant_produit|ca
+0021|951CF7DC78|7804.83
+0021||7128.14
+0021|525B4556D1|2826.27
+0021|B580E681DE|3926.79
+0021|81D966D6EC|3373.19
+0021|AED8DA0F93|4013.50
+0021|25561B13AA|5399.38
+0021|0129F49447|2894.03
+0021|3D367B92F0|3576.07
 ```
 
 ## Run the tests
