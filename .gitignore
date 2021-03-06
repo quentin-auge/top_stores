@@ -1,0 +1,7 @@
+.coverage
+.idea/
+.tox/
+.venv/
+__pycache__/
+top_stores.egg-info/
+out/

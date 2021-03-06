@@ -1,0 +1,17 @@
+[run]
+
+branch = True
+
+omit =
+    */__init__.py
+    */cli.py
+
+[report]
+
+sort = Cover
+
+exclude_lines =
+    # Have to re-enable the standard pragma
+    pragma: no cover
+
+    raise NotImplementedError
