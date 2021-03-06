@@ -6,7 +6,7 @@ This take home project is about aggregating a file containing 160M monthly purch
 
 The code runs with Python >= 3.6. It is a locally pip-installable pure python package relying
 exclusively on standard library (no dependency), exposing a `top-stores` command line tool.
-It is tested using `tox` and `pytest`.
+It is tested using `tox` and `pytest` with 100% coverage (excluding the main).
 
 ## Setup
 
@@ -65,10 +65,37 @@ pip install tox
 tox
 ```
 
-Tox outputs the coverage at the end.
+Tox outputs the coverage at the end (100%).
 
 Sample run:
 
 ```
 $ tox
+
+GLOB sdist-make: setup.py
+py3 recreate: .tox/py3
+py3 installdeps: .
+py3 inst: .tox/.tmp/package/1/top-stores-0.1.zip
+py3 run-test: commands[0] | pytest --cov top_stores
+======================== test session starts ========================
+platform linux -- Python 3.6.9, pytest-6.2.2, py-1.10.0, pluggy-0.13.1
+cachedir: .tox/py3/.pytest_cache
+rootdir: .
+plugins: cov-2.11.1
+collected 1 item
+
+test_aggregations.py .                                                                                                                                                                                                                [100%]
+
+----------- coverage: platform linux, python 3.6.9 -----------
+Name                           Stmts   Miss Branch BrPart  Cover
+-----------------------------------------------------------------------------------------------
+top_stores/aggregations.py      14      0      2      0   100%
+-----------------------------------------------------------------------------------------------
+TOTAL                           14      0      2      0   100%
+
+
+====================================== 1 passed in 0.08s ======================================
+____________________________________________ summary __________________________________________
+  py3: commands succeeded
+  congratulations :)
 ```
