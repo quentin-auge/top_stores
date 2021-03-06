@@ -22,7 +22,7 @@ class TopStoresAggregator:
         store_id = transaction['code_magasin']
         self.stores_revenue[store_id] += float(transaction['prix'])
 
-    def get_top_stores(self, n=50) -> List[Dict[str, str]]:
+    def get_top_stores(self, n: int) -> List[Dict[str, str]]:
         """
         Query top stores.
 
@@ -74,7 +74,7 @@ class TopProductsAggregator:
         self.stores_products[store_id][product_id] += 1
         self.stores_products_revenue[store_id][product_id] += float(transaction['prix'])
 
-    def get_top_products_by_store(self, n=10) -> Dict[str, List[Dict[str, str]]]:
+    def get_top_products_by_store(self, n: int) -> Dict[str, List[Dict[str, str]]]:
         """
         Query top products by store.
 

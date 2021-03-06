@@ -3,7 +3,7 @@ import csv
 import gzip
 import os
 
-from top_stores.aggregations import TopStoresAggregator
+from top_stores.aggregations import TopProductsAggregator, TopStoresAggregator
 
 
 def main():
@@ -23,18 +23,16 @@ def main():
     # Create aggregators
 
     top_stores_aggregator = TopStoresAggregator()
+    top_products_aggregator = TopProductsAggregator()
 
     # Ingest transactions
 
     with gzip.open('randomized-transactions-202009.psv.gz', 'rt') as file:
         reader = csv.DictReader(file, delimiter='|')
 
-        i = 0
         for transaction in reader:
             top_stores_aggregator.ingest(transaction)
-            if i > 10000:
-              break
-            i += 1
+            top_products_aggregator.ingest(transaction)
 
     # Write top stores
 
@@ -42,8 +40,26 @@ def main():
         fieldnames = ['code_magasin', 'ca']
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
-        for row in top_stores_aggregator.get_top_stores():
+        for row in top_stores_aggregator.get_top_stores(n=50):
             writer.writerow(row)
+
+    # Write top products
+
+    top_products_folder = os.path.join(args.out, 'top-products-by-store')
+    os.mkdir(top_products_folder)
+
+    top_products = top_products_aggregator.get_top_products_by_store(n=100).items()
+
+    for store_id, top_products_rows in top_products:
+        top_products_file = os.path.join(top_products_folder,
+                                         f'top-100-products-store-{store_id}.csv')
+
+        with open(top_products_file, 'w') as f:
+            fieldnames = ['code_magasin', 'identifiant_produit', 'ca']
+            writer = csv.DictWriter(f, fieldnames=fieldnames)
+            writer.writeheader()
+            for row in top_products_rows:
+                writer.writerow(row)
 
 
 if __name__ == '__main__':
